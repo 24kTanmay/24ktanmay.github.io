@@ -13,6 +13,10 @@
     --medium-gray: #94a3b8;
     --transition: all 0.3s ease;
     --focus-outline: 3px solid #0284c7;
+    --aexlrt-color-1: #5a67d8; /* Purple for ÆXLRT */
+    --aexlrt-color-2: #3c366b; /* Dark purple for ÆXLRT */
+    --augen-color-1: #0891b2; /* Teal for Augen Pro */
+    --augen-color-2: #164e63; /* Dark teal for Augen Pro */
 }
 
 /* Basic accessibility */
@@ -221,6 +225,57 @@ p {
     text-align: left;
 }
 
+.brand-link {
+    color: var(--aexlrt-color-1);
+    text-decoration: none;
+    font-weight: 600;
+    position: relative;
+    transition: var(--transition);
+}
+
+.brand-link:hover, 
+.brand-link:focus {
+    color: var(--aexlrt-color-2);
+}
+
+.brand-link::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 2px;
+    background-color: var(--aexlrt-color-1);
+    bottom: -2px;
+    left: 0;
+    transform: scaleX(0);
+    transform-origin: bottom right;
+    transition: transform 0.3s ease;
+}
+
+.brand-link:hover::after, 
+.brand-link:focus::after {
+    transform: scaleX(1);
+    transform-origin: bottom left;
+    background-color: var(--aexlrt-color-2);
+}
+
+.augen-link {
+    color: var(--augen-color-1);
+}
+
+.augen-link:hover, 
+.augen-link:focus {
+    color: var(--augen-color-2);
+}
+
+.augen-link::after {
+    background-color: var(--augen-color-1);
+}
+
+.augen-link:hover::after, 
+.augen-link:focus::after {
+    background-color: var(--augen-color-2);
+}
+
 .skills {
     display: flex;
     justify-content: space-between;
@@ -310,6 +365,65 @@ p {
 
 .project-card:nth-child(1) .project-image {
     background-image: url('https://via.placeholder.com/500');
+}
+
+.aexlrt-image {
+    background-image: linear-gradient(rgba(90, 103, 216, 0.7), rgba(60, 54, 107, 0.8)), url('https://via.placeholder.com/500') !important;
+    background-size: cover;
+    background-position: center;
+    position: relative;
+    border: 3px solid transparent;
+    border-image: linear-gradient(45deg, var(--aexlrt-color-1), var(--aexlrt-color-2));
+    border-image-slice: 1;
+    transition: all 0.4s ease-in-out;
+    box-shadow: 0 8px 20px rgba(60, 54, 107, 0.2);
+    overflow: hidden;
+    animation: aexlrtGlow 3s infinite ease-in-out;
+}
+
+.aexlrt-image::before {
+    content: 'Æ';
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 24px;
+    font-weight: bold;
+    color: white;
+    opacity: 0.8;
+    z-index: 1;
+    text-shadow: 0 0 10px var(--aexlrt-color-1);
+    transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.aexlrt-image::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, rgba(90, 103, 216, 0.8), rgba(60, 54, 107, 0.6)) !important;
+    transition: all 0.5s ease;
+    z-index: 0;
+}
+
+.project-card:hover .aexlrt-image, 
+.project-card:focus-within .aexlrt-image {
+    transform: scale(1.03) perspective(1000px) rotateX(2deg) rotateY(-2deg);
+    box-shadow: 0 15px 30px rgba(60, 54, 107, 0.3);
+    animation: none;
+}
+
+.project-card:hover .aexlrt-image::before,
+.project-card:focus-within .aexlrt-image::before {
+    transform: rotate(10deg) scale(1.2);
+    opacity: 1;
+}
+
+.project-card:hover .aexlrt-image::after,
+.project-card:focus-within .aexlrt-image::after {
+    background: linear-gradient(135deg, rgba(90, 103, 216, 0.9), rgba(60, 54, 107, 0.7)) !important;
+    opacity: 0.8;
 }
 
 .project-card:nth-child(2) .project-image {
@@ -534,4 +648,78 @@ section {
         transition-duration: 0.01ms !important;
         scroll-behavior: auto !important;
     }
+}
+
+/* Add keyframes for the glowing animation */
+@keyframes aexlrtGlow {
+  0% { box-shadow: 0 8px 20px rgba(60, 54, 107, 0.2); }
+  50% { box-shadow: 0 8px 25px rgba(90, 103, 216, 0.4); }
+  100% { box-shadow: 0 8px 20px rgba(60, 54, 107, 0.2); }
+}
+
+/* Augen Pro image styling */
+.augen-image {
+    background-image: linear-gradient(rgba(8, 145, 178, 0.7), rgba(22, 78, 99, 0.8)), url('https://augen.pro/assets/images/hero-profile.webp') !important;
+    background-size: cover;
+    background-position: center;
+    position: relative;
+    border: 3px solid transparent;
+    border-image: linear-gradient(45deg, var(--augen-color-1), var(--augen-color-2));
+    border-image-slice: 1;
+    transition: all 0.4s ease-in-out;
+    box-shadow: 0 8px 20px rgba(22, 78, 99, 0.2);
+    overflow: hidden;
+    animation: augenGlow 3s infinite ease-in-out;
+}
+
+.augen-image::before {
+    content: 'A';
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 24px;
+    font-weight: bold;
+    color: white;
+    opacity: 0.8;
+    z-index: 1;
+    text-shadow: 0 0 10px var(--augen-color-1);
+    transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.augen-image::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, rgba(8, 145, 178, 0.8), rgba(22, 78, 99, 0.6)) !important;
+    transition: all 0.5s ease;
+    z-index: 0;
+}
+
+.project-card:hover .augen-image, 
+.project-card:focus-within .augen-image {
+    transform: scale(1.03) perspective(1000px) rotateX(2deg) rotateY(-2deg);
+    box-shadow: 0 15px 30px rgba(22, 78, 99, 0.3);
+    animation: none;
+}
+
+.project-card:hover .augen-image::before,
+.project-card:focus-within .augen-image::before {
+    transform: rotate(10deg) scale(1.2);
+    opacity: 1;
+}
+
+.project-card:hover .augen-image::after,
+.project-card:focus-within .augen-image::after {
+    background: linear-gradient(135deg, rgba(8, 145, 178, 0.9), rgba(22, 78, 99, 0.7)) !important;
+    opacity: 0.8;
+}
+
+/* Add keyframes for the Augen glow animation */
+@keyframes augenGlow {
+  0% { box-shadow: 0 8px 20px rgba(22, 78, 99, 0.2); }
+  50% { box-shadow: 0 8px 25px rgba(8, 145, 178, 0.4); }
+  100% { box-shadow: 0 8px 20px rgba(22, 78, 99, 0.2); }
 } 
